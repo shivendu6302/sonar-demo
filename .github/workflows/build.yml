@@ -1,5 +1,4 @@
-name: SonarCloud JS Scan
-
+name: Build
 on:
   push:
     branches:
@@ -8,25 +7,14 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  build:
-    name: SonarCloud Scan
-    runs-on: ubuntu-latest
-
+  sonarqube:
+    name: SonarQube
+    runs-on: windows-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Full clone for better analysis
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      - name: Install dependencies (if needed)
-        run: npm install || true
-
-      - name: Run SonarCloud Scan
+          fetch-depth: 0
+      - name: SonarQube Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:
           projectKey: shivendu6302_sonar-demo
